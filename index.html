@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lisp vs Scheme: A Comparative History</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <h1>Lisp vs Scheme</h1>
+  <nav id="topic-nav" aria-label="Topic navigation">
+    <button type="button" class="topic-toggle" data-topic="history">History</button>
+    <button type="button" class="topic-toggle" data-topic="syntax">Syntax</button>
+    <button type="button" class="topic-toggle" data-topic="scoping">Scoping</button>
+    <button type="button" class="topic-toggle" data-topic="macros">Macros</button>
+    <button type="button" class="topic-toggle" data-topic="standardization">Standardization</button>
+  </nav>
+</header>
+
+<main>
+  <section id="history" class="topic-section" data-topic="history">
+    <h2>History</h2>
+    <div class="columns comparison">
+      <div class="column col-lisp">
+        <h3>Lisp</h3>
+        <p>Lisp was created in 1958 by John McCarthy at MIT, making it one of the oldest high-level programming languages still in use today.</p>
+        <pre><code class="lang-lisp">;; Lisp, 1958
+(print "hello")</code></pre>
+      </div>
+      <div class="column col-scheme">
+        <h3>Scheme</h3>
+        <p>Scheme was created in 1975 by Guy L. Steele and Gerald Jay Sussman at MIT as a minimalist, lexically scoped dialect of Lisp.</p>
+        <pre><code class="lang-scheme">;; Scheme, 1975
+(display "hello")</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="syntax" class="topic-section" data-topic="syntax">
+    <h2>Syntax</h2>
+    <div class="columns comparison">
+      <div class="column col-lisp">
+        <h3>Lisp</h3>
+        <pre><code class="lang-lisp">(format t "Hello, ~a!~%" "world")</code></pre>
+      </div>
+      <div class="column col-scheme">
+        <h3>Scheme</h3>
+        <pre><code class="lang-scheme">(display "Hello, world!")
+(newline)</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="scoping" class="topic-section" data-topic="scoping">
+    <h2>Scoping</h2>
+    <div class="columns comparison">
+      <div class="column col-lisp">
+        <h3>Lisp</h3>
+        <p>Common Lisp traditionally supports dynamic scoping for special variables, in addition to lexical scoping for ordinary bindings.</p>
+        <pre><code class="lang-lisp">(defvar *x* 10)
+(defun show-x () (print *x*))
+(let ((*x* 20)) (show-x)) ;; dynamic scope -&gt; 20</code></pre>
+      </div>
+      <div class="column col-scheme">
+        <h3>Scheme</h3>
+        <p>Scheme uses strict lexical scoping; a variable's binding is determined by where it is defined, not where it is called.</p>
+        <pre><code class="lang-scheme">(define x 10)
+(define (show-x) (display x))
+(let ((x 20)) (show-x)) ;; lexical scope -&gt; 10</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="macros" class="topic-section" data-topic="macros">
+    <h2>Macros</h2>
+    <div class="columns comparison">
+      <div class="column col-lisp">
+        <h3>Lisp</h3>
+        <pre><code class="lang-lisp">(defmacro my-if (test then else)
+  `(cond (,test ,then)
+         (t ,else)))</code></pre>
+      </div>
+      <div class="column col-scheme">
+        <h3>Scheme</h3>
+        <pre><code class="lang-scheme">(define-syntax my-if
+  (syntax-rules ()
+    ((_ test then else)
+     (cond (test then)
+           (else else)))))</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="standardization" class="topic-section" data-topic="standardization">
+    <h2>Standardization</h2>
+    <div class="columns comparison">
+      <div class="column col-lisp">
+        <h3>Lisp</h3>
+        <p>Common Lisp was standardized as ANSI INCITS 226-1994 (ANSI Common Lisp), providing a single, stable specification for implementers.</p>
+        <pre><code class="lang-lisp">;; ANSI INCITS 226-1994
+(defpackage :my-pkg)</code></pre>
+      </div>
+      <div class="column col-scheme">
+        <h3>Scheme</h3>
+        <p>Scheme is standardized through a series of Revised Reports on the Algorithmic Language Scheme (RnRS), such as R5RS and R7RS.</p>
+        <pre><code class="lang-scheme">;; R7RS
+(import (scheme base))</code></pre>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>&amp;copy; Lisp vs Scheme comparison reference.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
