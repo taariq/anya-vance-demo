@@ -1,0 +1,52 @@
+{
+  "list": "tests/mutations/list.mjs",
+  "caught": 6,
+  "survived": 0,
+  "invalid": 1,
+  "unreliable": 0,
+  "controlsFailed": 0,
+  "results": [
+    {
+      "id": "DI-3",
+      "file": "src/steps.js",
+      "status": "INVALID",
+      "detail": "find occurs 0 times in src/steps.js, not once"
+    },
+    {
+      "id": "DI-1",
+      "file": "src/tutorial.js",
+      "status": "CAUGHT",
+      "detail": ""
+    },
+    {
+      "id": "DI-2",
+      "file": "src/tutorial.js",
+      "status": "CAUGHT",
+      "detail": ""
+    },
+    {
+      "id": "DI-7",
+      "file": "src/steps.js",
+      "status": "CAUGHT",
+      "detail": ""
+    },
+    {
+      "id": "DI-6",
+      "file": "src/tutorial.js",
+      "status": "CAUGHT",
+      "detail": ""
+    },
+    {
+      "id": "DI-4",
+      "file": "index.html",
+      "status": "CAUGHT",
+      "detail": ""
+    },
+    {
+      "id": "DI-5",
+      "file": "index.html",
+      "status": "CAUGHT",
+      "detail": ""
+    }
+  ]
+}
