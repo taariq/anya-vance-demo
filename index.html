@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Haskell Tutorial</title>
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <h1>Haskell Tutorial</h1>
+      </header>
+      <main class="tutorial-content">
+        <h2 id="step-heading" data-testid="step-heading"></h2>
+        <p id="step-body" data-testid="step-body"></p>
+        <pre id="step-code" data-testid="step-code"></pre>
+        <pre id="step-output" data-testid="step-output"></pre>
+      </main>
+      <nav class="controls">
+        <button id="prev-button" data-testid="prev-button" type="button">
+          Previous
+        </button>
+        <button id="next-button" data-testid="next-button" type="button">
+          Next
+        </button>
+      </nav>
+    </div>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
