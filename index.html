@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OCaml &amp; Functional Programming Tutorial</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; background: #1e1e2e; color: #eee; }
+  header { padding: 1.5rem; text-align: center; border-bottom: 1px solid #333; }
+  nav.tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; padding: 1rem; }
+  nav.tabs button { background: #2d2d44; color: #ddd; border: 1px solid #444; border-radius: 6px; padding: 0.5rem 0.9rem; cursor: pointer; font-size: 0.85rem; }
+  nav.tabs button.active { background: #4b4bdb; color: #fff; }
+  main { max-width: 800px; margin: 0 auto; padding: 1rem 1.5rem 3rem; }
+  section.step { display: none; }
+  section.step.active { display: block; }
+  h2 { color: #8ab4ff; }
+  pre { background: #11111b; padding: 1rem; border-radius: 8px; overflow-x: auto; border: 1px solid #333; }
+  code { font-family: "Fira Code", Consolas, monospace; white-space: pre; }
+  .output-label { font-weight: bold; color: #a6e3a1; margin-top: 1rem; }
+  .nav-buttons { display: flex; justify-content: space-between; margin-top: 2rem; }
+  .nav-buttons button { padding: 0.6rem 1.2rem; border-radius: 6px; border: none; background: #4b4bdb; color: #fff; cursor: pointer; }
+  .nav-buttons button:disabled { opacity: 0.4; cursor: default; }
+</style>
+</head>
+<body>
+<header>
+  <h1>OCaml &amp; Functional Programming Tutorial</h1>
+  <p>A self-contained, step-by-step walkthrough of basic OCaml and core functional-programming concepts.</p>
+</header>
+
+<nav class="tabs" id="tabs"></nav>
+
+<main id="steps"></main>
+
+<div class="nav-buttons" style="max-width:800px;margin:0 auto;padding:0 1.5rem;">
+  <button id="prevBtn">&larr; Previous</button>
+  <button id="nextBtn">Next &rarr;</button>
+</div>
+
+<script>
+  // All snippet/output text below is inserted via textContent (never innerHTML/document.write)
+  // so no OCaml syntax (<, >, ->, etc.) can be interpreted as markup and no injection path exists.
+
+  var steps = [
+    {
+      id: "intro",
+      title: "Introduction",
+      body: "This tutorial walks through a tiny OCaml \"hello world\" program and four core " +
+            "functional-programming concepts: recursion, pattern matching, higher-order functions " +
+            "over lists, and immutability. Each step shows the exact OCaml source and the program's " +
+            "captured (or hand-traced) output. Use the tabs or Next/Previous buttons to move between steps.",
+      snippet: null,
+      output: null
+    },
+    {
+      id: "hello-world",
+      title: "Hello, World (src/hello.ml)",
+      body: "The simplest OCaml program: print a line to standard output. This is the exact " +
+            "content of src/hello.ml in this repository.",
+      snippet: "(* hello.ml - Concept: hello-world / basic I/O *)\n" +
+               "(* The simplest OCaml program: print a greeting to stdout. *)\n" +
+               "let hello () = print_endline \"Hello, world!\"\n" +
+               "let () = hello ()\n",
+      output: "Hello, world!"
+    },
+    {
+      id: "recursion",
+      title: "Recursion (src/concepts.ml)",
+      body: "OCaml functions can call themselves using the `let rec` keyword. Here, factorial is " +
+            "defined recursively: the base case is 0, and every other case multiplies n by the " +
+            "factorial of n - 1. This snippet is copied verbatim from src/concepts.ml.",
+      snippet: "(* Concept: recursion *)\n" +
+               "(* factorial computes n! by recursing down to the base case 0. *)\n" +
+               "let rec factorial n =\n" +
+               "  if n = 0 then 1\n" +
+               "  else n * factorial (n - 1)\n",
+      output: "factorial 5 = 120"
+    },
+    {
+      id: "pattern-matching",
+      title: "Pattern Matching (src/concepts.ml)",
+      body: "`match` lets you branch on the shape or value of its input directly, instead of " +
+            "chained if/else checks. This snippet is copied verbatim from src/concepts.ml.",
+      snippet: "(* Concept: pattern matching *)\n" +
+               "(* describe uses pattern matching to branch on the shape/value of its input. *)\n" +
+               "let describe n =\n" +
+               "  match n with\n" +
+               "  | 0 -> \"zero\"\n" +
+               "  | 1 -> \"one\"\n" +
+               "  | n when n < 0 -> \"negative\"\n" +
+               "  | _ -> \"many\"\n",
+      output: "describe 0 = zero\ndescribe 1 = one\ndescribe (-3) = negative\ndescribe 42 = many"
+    },
+    {
+      id: "higher-order-lists",
+      title: "Higher-Order Functions & Lists (src/concepts.ml)",
+      body: "`List.map` and `List.fold_left` are higher-order functions: they take a function as an " +
+            "argument and apply/reduce it over a list. This snippet is copied verbatim from " +
+            "src/concepts.ml.",
+      snippet: "(* Concept: higher-order functions over lists *)\n" +
+               "(* double_all uses List.map, a higher-order function, to transform every\n" +
+               "   element of a list without writing an explicit loop. *)\n" +
+               "let double_all lst =\n" +
+               "  List.map (fun x -> x * 2) lst\n\n" +
+               "(* sum_all uses List.fold_left, another higher-order function, to reduce a\n" +
+               "   list to a single accumulated value. *)\n" +
+               "let sum_all lst =\n" +
+               "  List.fold_left (fun acc x -> acc + x) 0 lst\n",
+      output: "doubled = [2; 4; 6; 8]\nsum_all original = 10"
+    },
+    {
+      id: "immutability",
+      title: "Immutability (src/concepts.ml)",
+      body: "OCaml values are immutable by default: `original` is bound once and never mutated; " +
+            "`doubled` is a brand-new list produced from it. This snippet is copied verbatim from " +
+            "src/concepts.ml.",
+      snippet: "(* Concept: immutability *)\n" +
+               "(* original is bound once and never mutated; doubled is a brand-new list\n" +
+               "   produced from it. Both names remain valid and distinct afterward,\n" +
+               "   demonstrating that OCaml values are immutable by default. *)\n" +
+               "let original = [ 1; 2; 3; 4 ]\n" +
+               "let doubled = double_all original\n",
+      output: "original = [1; 2; 3; 4]\ndoubled = [2; 4; 6; 8]"
+    }
+  ];
+
+  var current = 0;
+  var tabsEl = document.getElementById("tabs");
+  var stepsEl = document.getElementById("steps");
+  var prevBtn = document.getElementById("prevBtn");
+  var nextBtn = document.getElementById("nextBtn");
+
+  function buildTabs() {
+    steps.forEach(function (step, idx) {
+      var btn = document.createElement("button");
+      btn.textContent = step.title;
+      btn.setAttribute("data-idx", String(idx));
+      btn.addEventListener("click", function () { showStep(idx); });
+      tabsEl.appendChild(btn);
+    });
+  }
+
+  function buildSteps() {
+    steps.forEach(function (step, idx) {
+      var section = document.createElement("section");
+      section.className = "step";
+      section.id = "step-" + step.id;
+
+      var h2 = document.createElement("h2");
+      h2.textContent = step.title;
+      section.appendChild(h2);
+
+      var p = document.createElement("p");
+      p.textContent = step.body;
+      section.appendChild(p);
+
+      if (step.snippet !== null) {
+        var pre = document.createElement("pre");
+        var code = document.createElement("code");
+        code.textContent = step.snippet;
+        pre.appendChild(code);
+        section.appendChild(pre);
+      }
+
+      if (step.output !== null) {
+        var outLabel = document.createElement("div");
+        outLabel.className = "output-label";
+        outLabel.textContent = "Output:";
+        section.appendChild(outLabel);
+
+        var outPre = document.createElement("pre");
+        outPre.textContent = step.output;
+        section.appendChild(outPre);
+      }
+
+      stepsEl.appendChild(section);
+    });
+  }
+
+  function showStep(idx) {
+    current = idx;
+    document.querySelectorAll("section.step").forEach(function (el, i) {
+      el.classList.toggle("active", i === idx);
+    });
+    document.querySelectorAll("nav.tabs button").forEach(function (el, i) {
+      el.classList.toggle("active", i === idx);
+    });
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === steps.length - 1;
+  }
+
+  prevBtn.addEventListener("click", function () {
+    if (current > 0) showStep(current - 1);
+  });
+  nextBtn.addEventListener("click", function () {
+    if (current < steps.length - 1) showStep(current + 1);
+  });
+
+  buildTabs();
+  buildSteps();
+  showStep(0);
+</script>
+</body>
+</html>
