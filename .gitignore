@@ -1,0 +1,12 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+.playwright/
+*.log
+.DS_Store
+.uncle/*
+!.uncle/docs/
+!.uncle/attestation.json
+!.uncle/attestation.sig
+!.uncle/allowed_signers

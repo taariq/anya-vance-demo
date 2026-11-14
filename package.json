@@ -1,0 +1,18 @@
+{
+  "name": "haskell-tutorial",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Interactive Haskell tutorial webpage",
+  "scripts": {
+    "test": "vitest run",
+    "test:unit": "vitest run tests",
+    "test:e2e": "playwright test",
+    "mutations": "node tests/mutations/run.mjs"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.9",
+    "jsdom": "^25.0.1",
+    "@playwright/test": "^1.49.1"
+  }
+}
