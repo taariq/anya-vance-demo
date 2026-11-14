@@ -1,0 +1,132 @@
+/* Lisp vs Scheme comparison page styles
+   Class/attribute convention (D-3): sections use `data-topic` attribute;
+   each topic section contains two columns (.col-lisp / .col-scheme) with
+   code blocks tagged `.lang-lisp` / `.lang-scheme`.
+*/
+
+:root {
+  --border-color: #ccc;
+  --bg-code: #f5f5f5;
+  --accent: #2a5d8f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  padding: 0 1rem 2rem;
+  line-height: 1.5;
+  color: #222;
+}
+
+header, main, footer {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: var(--accent);
+}
+
+/* Topic navigation / toggle controls */
+nav[aria-label="Topic navigation"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+nav[aria-label="Topic navigation"] button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+nav[aria-label="Topic navigation"] button[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* Topic sections: visible-by-default (no-JS fallback per §12).
+   Active/inactive state is controlled via the [hidden] attribute or
+   the .is-hidden class toggled by script.js. */
+section[data-topic] {
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  background: #fff;
+}
+
+section[data-topic][hidden],
+section[data-topic].is-hidden {
+  display: none;
+}
+
+section[data-topic].is-active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+section[data-topic] > h2 {
+  margin-top: 0;
+}
+
+/* Two-column comparison layout for wide viewports */
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.comparison .col-lisp,
+.comparison .col-scheme {
+  min-width: 0;
+}
+
+.comparison .col-lisp h3,
+.comparison .col-scheme h3 {
+  margin-top: 0;
+  font-size: 1rem;
+  color: var(--accent);
+}
+
+/* Code block styling */
+pre {
+  background: var(--bg-code);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 0.75rem;
+  overflow-x: auto;
+  margin: 0;
+}
+
+code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.9rem;
+}
+
+code.lang-lisp,
+code.lang-scheme {
+  display: block;
+  white-space: pre;
+}
+
+/* Stacked layout under narrow-width viewports */
+@media (max-width: 640px) {
+  .comparison {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison .col-scheme {
+    margin-top: 1rem;
+  }
+}
